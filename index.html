@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
     <title>Valentine's Day Proposal</title>
     <style>
         * {
@@ -67,6 +68,23 @@
             line-height: 1.6;
         }
 
+        .text-primary {
+            color: #ff6b9d;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .text-secondary {
+            color: #c44569;
+            font-style: italic;
+        }
+
+        .text-muted {
+            color: #666;
+            text-align: center;
+        }
+
         .button-group {
             display: flex;
             gap: 20px;
@@ -129,17 +147,16 @@
             margin: 20px 0;
         }
 
-        .hearts {
-            font-size: 2rem;
-            animation: fall 3s infinite;
-        }
-
         .gift-section {
             margin-top: 40px;
             padding: 30px;
             background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 69, 105, 0.1));
             border-radius: 15px;
             border: 2px solid #ff6b9d;
+        }
+
+        .gift-section > p:last-of-type {
+            margin-top: 20px;
         }
 
         .gift-hearts {
@@ -225,7 +242,7 @@
             <div class="emoji">💕</div>
             <p>I know you can't resist! You've made me the happiest person. Let's plan something amazing together!</p>
             <div class="gift-section">
-                <p style="font-weight: bold; font-size: 1.2rem; color: #ff6b9d; margin-bottom: 15px;">✨ A Special Gift for You ✨</p>
+                <p class="text-primary">✨ A Special Gift for You ✨</p>
                 <div class="gift-hearts">
                     <span>❤️</span>
                     <span>💕</span>
@@ -238,7 +255,7 @@
                     In your smile, I found my joy.<br>
                     In your heart, I found my love."
                 </p>
-                <p style="text-align: center; margin-top: 20px; color: #666;">
+                <p class="text-muted">
                     Let's celebrate love together! 🌹
                 </p>
             </div>
@@ -254,46 +271,42 @@
         function moveButton() {
             const randomX = Math.random() * 200 - 100;
             const randomY = Math.random() * 200 - 100;
-            
             noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
         }
 
-        noBtn.addEventListener('mouseover', moveButton);
-        noBtn.addEventListener('touchstart', moveButton);
-        noBtn.addEventListener('click', moveButton);
+        ['mouseover', 'touchstart', 'click'].forEach(event => {
+            noBtn.addEventListener(event, moveButton);
+        });
 
         yesBtn.addEventListener('click', function() {
             proposal.style.display = 'none';
             successMessage.style.display = 'block';
             
-            // Create floating hearts
             for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    createFloatingHeart();
-                }, i * 100);
+                setTimeout(createFloatingHeart, i * 100);
             }
         });
 
         function createFloatingHeart() {
             const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'fixed';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '-50px';
-            heart.style.fontSize = '2rem';
-            heart.style.pointerEvents = 'none';
-            heart.style.animation = 'fall 3s forwards';
+            heart.textContent = '❤️';
+            Object.assign(heart.style, {
+                position: 'fixed',
+                left: Math.random() * 100 + 'vw',
+                top: '-50px',
+                fontSize: '2rem',
+                pointerEvents: 'none',
+                animation: 'fall 3s forwards'
+            });
             document.body.appendChild(heart);
-            
             setTimeout(() => heart.remove(), 3000);
         }
 
-        // Prevent form submission on mobile
         document.addEventListener('touchmove', function(e) {
             if (e.target === noBtn) {
                 e.preventDefault();
             }
-        }, false);
+        });
     </script>
 </body>
 </html>
