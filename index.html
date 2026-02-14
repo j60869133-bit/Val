@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta name="description" content="A romantic Valentine's Day proposal page">
     <title>Valentine's Day Proposal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div id="proposal">
-            <h1>💕 Will You Be My Valentine? 💕</h1>
+    <main>
+        <div class="container">
+            <div id="proposal" role="region" aria-label="Proposal section">
+                <h1>💕 Will You Be My Valentine? 💕</h1>
             <div class="emoji">❤️</div>
             <p>I'd love to spend a special day with you this Valentine's Day. Let's create some beautiful memories together!</p>
             
             <div class="button-group">
-                <button id="yesBtn">Yes! 💚</button>
-                <button id="noBtn">No</button>
+                <button id="yesBtn" aria-label="Accept Valentine's proposal">Yes! 💚</button>
+                <button id="noBtn" aria-label="Decline Valentine's proposal">No</button>
+                <button id="soundBtn" class="sound-toggle" aria-label="Toggle sound" title="Toggle sound effects">🔊</button>
             </div>
         </div>
 
-        <div id="successMessage" class="success-message">
+        <div id="successMessage" class="success-message" role="region" aria-label="Success message">
             <h2>🎉 I Knew It! 🎉</h2>
             <div class="emoji">💕</div>
             <p>I know you can't resist! You've made me the happiest person. Let's plan something amazing together!</p>
@@ -44,6 +47,7 @@
             </div>
         </div>
     </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
